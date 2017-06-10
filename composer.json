@@ -1,5 +1,5 @@
 {
-  "name": "itvisionsy/credit-card-php",
+  "name": "itvisionsy/credit-card",
   "description": "PHP class to package helpful credit card functions",
   "type": "library",
   "license": "MIT",
