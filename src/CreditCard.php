@@ -220,7 +220,7 @@ class CreditCard
             $this->cardNumberErrorNumber = static::ERROR_ETYPE;
         }
 
-        $name = static::creditCardTypeToName($this->type);
+        $name = static::typeToName($this->type);
         if ($name === false) {
             $this->cardNumberErrorNumber = static::ERROR_ECANTYPE;
         }
