@@ -81,7 +81,7 @@ class CreditCard
      */
     public function set($cardNumber, $cardHolderName, $cardExpiryDate, $cardCVV2)
     {
-        $this->setCardNumber(preg_replace("#[^0-9]#", "", (string)$cardNumber));
+        $this->setCardNumber((string)$cardNumber);
         $this->setCardHolderName($cardHolderName);
         $this->setCardCVV2($cardCVV2);
         $this->setCardExpiryDate($cardExpiryDate);
