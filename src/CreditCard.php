@@ -61,6 +61,18 @@ class CreditCard
     protected $cardExpiryErrorNumber;
 
     /**
+     * @param string|number $cardNumber
+     * @param string $cardHolderName
+     * @param string $cardExpiryDate in one of the formats: YY/MM, YY-MM, YYMM, YYYYMM, YYYY/MM, YYYY-MM
+     * @param string $cardCVV2
+     * @return CreditCard|static|$this
+     */
+    public static function make($cardNumber, $cardHolderName, $cardExpiryDate, $cardCVV2)
+    {
+        return new static($cardNumber, $cardHolderName, $cardExpiryDate, $cardCVV2);
+    }
+
+    /**
      * CreditCard constructor.
      * @param string|number $cardNumber
      * @param string $cardHolderName
@@ -89,18 +101,6 @@ class CreditCard
     }
 
     /**
-     * @param string|number $cardNumber
-     * @param string $cardHolderName
-     * @param string $cardExpiryDate in one of the formats: YY/MM, YY-MM, YYMM, YYYYMM, YYYY/MM, YYYY-MM
-     * @param string $cardCVV2
-     * @return CreditCard|static|$this
-     */
-    public static function make($cardNumber, $cardHolderName, $cardExpiryDate, $cardCVV2)
-    {
-        return new static($cardNumber, $cardHolderName, $cardExpiryDate, $cardCVV2);
-    }
-
-    /**
      * @return bool|string
      */
     public function getCardNumber()
@@ -121,10 +121,6 @@ class CreditCard
     {
 
         $this->cardNumber = (string)$cardNumber;
-        $this->type = static::TYPE_UNKNOWN;
-        $this->cardNumberErrorNumber = static::ERROR_OK;
-
-        $this->check();
         return $this;
     }
 
@@ -264,8 +260,10 @@ class CreditCard
     /**
      * @return bool
      */
-    protected function check()
+    public function check()
     {
+        $this->type = static::TYPE_UNKNOWN;
+        $this->cardNumberErrorNumber = static::ERROR_OK;
         if (!$this->detectType($this->cardNumber)) {
             $this->cardNumberErrorNumber = static::ERROR_ETYPE;
             return false;
